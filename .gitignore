@@ -1,0 +1,14 @@
+/__pycache__/
+/.ruff_cache/
+*.spl
+
+.venv/
+env/
+venv/
+
+.vscode/
+.idea/
+
+dist/
+build/
+*.egg-info/
