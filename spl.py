@@ -1,5 +1,8 @@
 import argparse
+import subprocess
+import sys
 import time
+from pathlib import Path
 from sys import exit as sysexit
 
 from executor import execute, functions, variables
@@ -10,10 +13,18 @@ from parser import parser_engine
 parser = argparse.ArgumentParser()
 
 parser.add_argument("-f", "--file", type=str, default=None, )
+parser.add_argument("-ts", "--test", action="store_true", help="Start tests." )
 parser.add_argument("-d", "--debug",action="store_true", help="Enable debug mode.")
 parser.add_argument("-t", "--timer", action="store_true", help="The program outputs the duration for which it ran.")
 
 args = parser.parse_args()
+
+if args.test:
+    if args.file is not None or args.debug or args.timer:
+        parser.error("The test argument cannot be used with other arguments.")
+    test_path = Path(__file__).parent / "test" / "RunAllTests.py"
+    result = subprocess.run([sys.executable, str(test_path)])
+    sysexit(result.returncode)
 
 if args.file is None:
     raise FileNotFoundError("You must use the --file argument.")

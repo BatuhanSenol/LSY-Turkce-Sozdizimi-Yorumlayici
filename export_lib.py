@@ -1,5 +1,4 @@
 import importlib
-import inspect
 
 from error import Error
 
@@ -8,6 +7,9 @@ LIBRARYERROR = Error("LibraryError", "Library could not be loaded.")
 library_functions = {}
 
 def load(*names):
+    
+    import inspect
+    
     for name in names:
         try:
             module = importlib.import_module(f"lib.{name}")

@@ -1,3 +1,4 @@
+import operator
 import sys
 
 from error import (
@@ -14,56 +15,59 @@ variables = {}
 functions = {}
 scopes    = {}
 
+OperatorChars = {
+    "!=": operator.ne,
+    "==": operator.eq,
+    ">": operator.gt,
+    "<": operator.lt,
+    "-": operator.sub,
+    "+": operator.add,
+    "*": operator.mul
+}
+
 def evaluate(node, file_name):
-    if node[0] == "num":
+    kind = node[0]
+    if kind == "num":
         return node[1]
-    elif node[0] == "ident":
+    elif kind == "ident":
         name = node[1]
         line = node[2]
         if name not in variables:
             UNDEFINEDVALUEERROR.error(line, file_name, name)
         return variables[name]
-    elif node[0] == 'binop':
+    elif kind == 'binop':
         op = node[1]
         left = evaluate(node[2], file_name)
         right = evaluate(node[3], file_name)
         line = node[4]
-        if op == '+':
-            return left + right
-        elif op == '-':
-            return left - right
-        elif op == '*':
-            return left * right
-        elif op == '/':
+        if op == '/':
             if right == 0:
                 ZERODIVISIONERROR.error(line, file_name)
             return left / right
-        elif op == '==':
-            return left == right
-        elif op == '!=':
-            return left != right
-        elif op == '<':
-            return left < right
-        elif op == '>':
-            return left > right
-    elif node[0] == "str":
+        
+        return OperatorChars[op](left, right)
+        
+        
+    elif kind == "str":
         return node[1]
 
 
 def execute(node, file_name, debug):
     
-    if debug:
-        print(f"\nExecuting {node}")
+    kind = node[0]
     
-    if node[0] == 'assign':
+    if debug:
+        print(f"\nExecuting {kind}")
+    
+    if kind == 'assign':
         name = node[1]
         value = evaluate(node[2], file_name)
         variables[name] = value
 
-    elif node[0] == "fn":
+    elif kind == "fn":
         functions[node[1]] = (node[2], node[3], node[4])
 
-    elif node[0] == "call":
+    elif kind == "call":
         try:
             name = node[1]
             lib_name = node[2]
@@ -106,36 +110,36 @@ def execute(node, file_name, debug):
             RECURSIONERROR.error(line, file_name, node, f"Recursion limit: {sys.getrecursionlimit()}")
             
 
-    elif node[0] == 'if':
+    elif kind == 'if':
         condition = evaluate(node[1], file_name)
         if condition:
             for stmt in node[2]:
                 execute(stmt, file_name, debug)
 
-    elif node[0] == 'while':
+    elif kind == 'while':
         while evaluate(node[1], file_name):
             for stmt in node[2]:
                 execute(stmt, file_name, debug)
 
-    elif node[0] == "print":
+    elif kind == "print":
         name = node[1]
         line = node[2]
         if name not in variables:
             UNDEFINEDVALUEERROR.error(line, file_name, name)
         keyword_print(variables[name])
     
-    elif node[0] == "repeat":
+    elif kind == "repeat":
         for _ in range(node[1]):
             for stmt in node[2]:
                 execute(stmt, file_name, debug)
                 
-    elif node[0] == "sleep":
+    elif kind == "sleep":
         keyword_sleep(node[1])
         
-    elif node[0] == "use":
+    elif kind == "use":
         load(node[1])
         
-    elif node[0] == "del":
+    elif kind == "del":
         if node[1] not in variables and node[1] not in functions:
             UNDEFINEDVALUEERROR.error(node[2], file_name, node, "Variable or Function not founded.")
         if node[1] in variables:

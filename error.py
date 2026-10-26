@@ -1,14 +1,4 @@
-from datetime import datetime, timezone
-from sys import exit as sysexit
-
-from colorama import Fore
-
-reset = Fore.RESET
-red = Fore.RED
-green = Fore.GREEN
-blue = Fore.BLUE
-magenta = Fore.MAGENTA
-space = " " * 5
+from datetime import UTC
 
 
 class Error:
@@ -18,7 +8,19 @@ class Error:
     
     def error(self, ErrorLine:int, ErrorFile:str, ErrorElement:str | None = None, OptionalErrorText:str | None = None):
         
-        date = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        from datetime import datetime
+        from sys import exit as sysexit
+
+        from colorama import Fore
+
+        reset = Fore.RESET
+        red = Fore.RED
+        green = Fore.GREEN
+        blue = Fore.BLUE
+        magenta = Fore.MAGENTA
+        space = " " * 5
+        
+        date = datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
         
         print(f"\n [⦁] {magenta}Error{reset} at file: {magenta}{ErrorFile}{reset}:{magenta}{ErrorLine}{reset}")
         print(f"{space}|> Error Time: {date}")
