@@ -13,7 +13,7 @@ from parser import parser_engine
 parser = argparse.ArgumentParser()
 
 parser.add_argument("-f", "--file", type=str, default=None, )
-parser.add_argument("-ts", "--test", action="store_true", help="Start tests." )
+parser.add_argument("-ts", "--test", action="store_true", help="Start tests." ) # -t --timer ile dolu olduğundan kaynaklı -ts verildi.
 parser.add_argument("-d", "--debug",action="store_true", help="Enable debug mode.")
 parser.add_argument("-t", "--timer", action="store_true", help="The program outputs the duration for which it ran.")
 
@@ -25,6 +25,8 @@ if args.test:
     test_path = Path(__file__).parent / "test" / "RunAllTests.py"
     result = subprocess.run([sys.executable, str(test_path)])
     sysexit(result.returncode)
+
+# Geçici olarak yorumlayıcıya dosya verilmediği zaman PEP standartı hata fırlatıyor, ileri vadede bu kullanıcıya yönelik text-based hata mesajı olacak
 
 if args.file is None:
     raise FileNotFoundError("You must use the --file argument.")

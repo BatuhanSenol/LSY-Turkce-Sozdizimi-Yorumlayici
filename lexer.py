@@ -29,6 +29,10 @@ TOKEN_SPEC = [
     ("UNKNOWN", r".")
 ]
 
+# Türkçeleştirme amaçlı boş stringler bırakıldı. Geçiş sürecinde boş değerler Türkçe değerler ile eşleştilecek.
+# Eşleştirilen Türkçe ifadelerin Ingilizce hali .upper() metodu ile tokens listesine eklenecektir.
+# Örneğin: ("if", "eğer"),
+
 KEYWORDS =  {('if',    ""), 
             ('while',  ""), 
             ('else',   ""), 

@@ -15,6 +15,9 @@ variables = {}
 functions = {}
 scopes    = {}
 
+# Dilin temel özelliği olacak scope opsiyonel olarak eklenmesinin yukarıda temelleri atıldı.
+# İleride scope keyword'u anlama kavuştuğu zaman scope içine eklenen listeler scope görevi görecektir.
+
 OperatorChars = {
     "!=": operator.ne,
     "==": operator.eq,

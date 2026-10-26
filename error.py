@@ -1,6 +1,5 @@
 from datetime import UTC
 
-
 class Error:
     def __init__(self, ErrorName:str, ErrorText:str, ):
         self.ErrorName = ErrorName
@@ -8,10 +7,13 @@ class Error:
     
     def error(self, ErrorLine:int, ErrorFile:str, ErrorElement:str | None = None, OptionalErrorText:str | None = None):
         
+        # Hata oluşmayacak scriptlerde modüllerin yüklenip overhead vermemesi için içe aktarmalar .error() metoduna eklendi.
+        
         from datetime import datetime
         from sys import exit as sysexit
 
         from colorama import Fore
+
 
         reset = Fore.RESET
         red = Fore.RED
