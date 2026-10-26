@@ -29,7 +29,8 @@ TOKEN_SPEC = [
     ("UNKNOWN", r".")
 ]
 
-KEYWORDS = {'if', 'while', 'else', 'fn', "call", "print", "repeat", "sleep", "use", "del"}
+KEYWORDS =         {'if', 'while', 'else', 'fn', "call", "print", "repeat", "sleep", "use", "del", "scope"}
+TURKISH_KEYWORDS = {}
 
 def lexer_engine(code:str="", file_name:str=""):
     tokens = []

@@ -1,0 +1,9 @@
+fn x ():() {
+    x = "Test 2";
+
+    repeat 5 {
+        print x;
+    }
+}
+
+call x():();

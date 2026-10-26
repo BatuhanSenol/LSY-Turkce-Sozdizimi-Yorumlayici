@@ -1,4 +1,3 @@
 # SPL
 
-----
 Simple Custom Interpreter

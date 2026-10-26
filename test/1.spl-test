@@ -1,0 +1,6 @@
+fn x():() {
+    x = "Test-1";
+    print x;
+}
+
+call x():();

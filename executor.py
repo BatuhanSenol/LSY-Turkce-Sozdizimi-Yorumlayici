@@ -12,7 +12,7 @@ from keyword_functions import *
 
 variables = {}
 functions = {}
-
+scopes    = {}
 
 def evaluate(node, file_name):
     if node[0] == "num":
