@@ -1,0 +1,13 @@
+fn kare(p):(q) {
+    q = p * p;
+}
+fn kup(x):(r) {
+    call kare(x):(t);
+    r = t * x;
+}
+i = 0;
+while i < 20000 {
+    call kup(i):(res);
+    i = i + 1;
+}
+print res;

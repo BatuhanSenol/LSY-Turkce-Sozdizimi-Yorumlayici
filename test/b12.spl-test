@@ -1,0 +1,8 @@
+s = "merhaba";
+t = " dunya";
+i = 0;
+while i < 100000 {
+    r = s + t;
+    i = i + 1;
+}
+print r;

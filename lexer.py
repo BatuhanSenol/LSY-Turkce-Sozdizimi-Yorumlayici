@@ -29,8 +29,19 @@ TOKEN_SPEC = [
     ("UNKNOWN", r".")
 ]
 
-KEYWORDS =         {'if', 'while', 'else', 'fn', "call", "print", "repeat", "sleep", "use", "del", "scope"}
-TURKISH_KEYWORDS = {}
+KEYWORDS =  {('if',    ""), 
+            ('while',  ""), 
+            ('else',   ""), 
+            ('fn',     ""), 
+            ("call",   ""),
+            ("print",  ""), 
+            ("repeat", ""), 
+            ("sleep",  ""),
+            ("use",    ""), 
+            ("del",    ""), 
+            ("scope",  "")}
+
+KEYWORD_MAP = {en: en.upper() for en, tr in KEYWORDS}
 
 def lexer_engine(code:str="", file_name:str=""):
     tokens = []
@@ -49,8 +60,8 @@ def lexer_engine(code:str="", file_name:str=""):
             continue
         if kind == "UNKNOWN":
             SYNTAXERROR.error(token_line, ErrorFile=file_name, ErrorElement=value)
-        if kind == 'IDENT' and value in KEYWORDS:
-            kind = value.upper()
+        if kind == 'IDENT':
+            kind = KEYWORD_MAP.get(value, kind)
         tokens.append((kind, value, token_line))
 
     tokens.append(("EOF", None, line))

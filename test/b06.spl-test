@@ -1,0 +1,14 @@
+i = 0;
+small = 0;
+big = 0;
+while i < 300000 {
+    if i < 150000 {
+        small = small + 1;
+    }
+    if i > 149999 {
+        big = big + 1;
+    }
+    i = i + 1;
+}
+print small;
+print big;

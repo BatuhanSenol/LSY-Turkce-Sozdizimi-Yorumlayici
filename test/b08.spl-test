@@ -1,0 +1,12 @@
+fn topla_fark(a, b):(s, d) {
+    s = a + b;
+    d = a - b;
+}
+i = 0;
+k = 7;
+while i < 50000 {
+    call topla_fark(i, k):(sonuc1, sonuc2);
+    i = i + 1;
+}
+print sonuc1;
+print sonuc2;

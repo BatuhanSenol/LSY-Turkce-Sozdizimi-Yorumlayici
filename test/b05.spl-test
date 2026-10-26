@@ -1,0 +1,11 @@
+i = 0;
+count = 0;
+while i < 1000 {
+    j = 0;
+    while j < 300 {
+        count = count + 1;
+        j = j + 1;
+    }
+    i = i + 1;
+}
+print count;

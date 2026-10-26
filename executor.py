@@ -18,11 +18,11 @@ scopes    = {}
 OperatorChars = {
     "!=": operator.ne,
     "==": operator.eq,
-    ">": operator.gt,
-    "<": operator.lt,
-    "-": operator.sub,
-    "+": operator.add,
-    "*": operator.mul
+    ">":  operator.gt,
+    "<":  operator.lt,
+    "-":  operator.sub,
+    "+":  operator.add,
+    "*":  operator.mul
 }
 
 def evaluate(node, file_name):

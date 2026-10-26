@@ -32,9 +32,9 @@ class Error:
 
         sysexit(1)
 
-SYNTAXERROR = Error(ErrorName="SyntaxError", ErrorText="Unknown syntax.")
-MEMORYERROR = Error(ErrorName="MemoryError", ErrorText="Insufficient memory.")
-UNDEFINEDVALUEERROR = Error("UndefinedValueError", "Variable not defined.")
-UNDEFINEDFUNCTIONERROR = Error("UndefinedFunctionError", "Function not defined.")
-ZERODIVISIONERROR = Error("ZeroDivisionError", "Division by zero.")
-RECURSIONERROR = Error("RecursionError", "The recursive function call limit has been reached.")
+SYNTAXERROR             = Error(ErrorName="SyntaxError", ErrorText="Unknown syntax.")
+MEMORYERROR             = Error(ErrorName="MemoryError", ErrorText="Insufficient memory.")
+UNDEFINEDVALUEERROR     = Error("UndefinedValueError", "Variable not defined.")
+UNDEFINEDFUNCTIONERROR  = Error("UndefinedFunctionError", "Function not defined.")
+ZERODIVISIONERROR       = Error("ZeroDivisionError", "Division by zero.")
+RECURSIONERROR          = Error("RecursionError", "The recursive function call limit has been reached.")
