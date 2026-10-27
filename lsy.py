@@ -3,6 +3,8 @@
 # LSY - Türkçe Sözdizimi Yorumlayıcı
 # ---
 
+__version__ = "0.1.0"
+
 import argparse
 import subprocess
 import sys
