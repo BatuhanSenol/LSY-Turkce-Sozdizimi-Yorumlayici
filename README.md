@@ -1,8 +1,10 @@
-# SPL
+# LSY - Lokal Sözdizimi Yorumlayıcı 
 
-Simple Custom Interpreter
+Basit özelleştirilmiş python tabanlı yorumlayıcı.
 
-## Function
+# `LOKALLEŞTİRME AŞAMASINDADIR!!!`
+
+## Fonksiyonlar
 ```
 fn foo():() {}
 

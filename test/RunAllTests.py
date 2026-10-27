@@ -7,7 +7,7 @@ for file in Path(__file__).parent.glob('*.spl-test'):
     TestFiles.append(file)
     print(file)
     
-Interpreter = (Path(__file__).parent.parent / "spl.py").resolve()
+Interpreter = (Path(__file__).parent.parent / "LSY.py").resolve()
 
 n = 1
 

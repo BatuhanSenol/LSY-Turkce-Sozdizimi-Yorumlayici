@@ -1,3 +1,8 @@
+
+# ---
+# LSY - Türkçe Sözdizimi Yorumlayıcı
+# ---
+
 import argparse
 import subprocess
 import sys
