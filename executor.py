@@ -7,6 +7,7 @@ from error import (
     UNDEFINEDFUNCTIONERROR,
     UNDEFINEDVALUEERROR,
     ZERODIVISIONERROR,
+    TYPEERROR,
 )
 from export_lib import library_functions, load
 from keyword_functions import *
@@ -48,7 +49,12 @@ def evaluate(node, file_name):
                 ZERODIVISIONERROR.error(line, file_name)
             return left / right
         
-        return OperatorChars[op](left, right)
+        try:
+            value = OperatorChars[op](left, right)
+        except TypeError as e:
+            TYPEERROR.error(line, file_name, node[1], "String and Number types cannot be added together.")
+        
+        return value
         
         
     elif kind == "str":
