@@ -13,4 +13,10 @@ call foo():();
 
 - İlk parantez fonksiyon imzasıdır.
 - İkinci parantez return değerleridir.  
+
+
+
+O -> ali
+
+özgürün amını deşimm
 ---
