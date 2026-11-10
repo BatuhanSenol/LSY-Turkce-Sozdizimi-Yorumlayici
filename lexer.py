@@ -1,71 +1,82 @@
 from re import finditer
-
+from unicodedata import normalize
 from error import SYNTAXERROR
 
 TOKEN_SPEC = [
-    ('NUMBER',  r'\d+'),
-    ('PLUS',    r'\+'),
-    ('MINUS',   r'-'),
-    ('STAR',    r'\*'),
+    ('NUMBER',    r'\d+'),
+    ('PLUS',      r'\+'),
+    ('MINUS',     r'-'),
+    ('STAR',      r'\*'),
     ('COMMENT',   r'//[^\n]*'),
-    ('SLASH',   r'/'),
-    ('LPAREN',  r'\('),
-    ('RPAREN',  r'\)'),
-    ('SKIP',    r'[ \t\n]+'),
+    ('SLASH',     r'/'),
+    ('LPAREN',    r'\('),
+    ('RPAREN',    r'\)'),
+    ('SKIP',      r'[ \t\n]+'),
     ('SEMICOLON', r';'),
-    ('COLON', r':'),
-    ("EQEQ", r"=="),
-    ("EQ", r"="),
-    ('LBRACE', r'\{'),
-    ('RBRACE', r'\}'),
-    ('LT',    r'<'),
-    ('GT',    r'>'),
-    ('NEQ',   r'!='),
-    ("STRING", r'"(?:\\.|[^"\\])*"'),
-    ("COMMA", r","),
-    ('DOT', r'\.'),
-    
-    ('IDENT', r'[a-zA-Z_][\w-]*'),
-    ("UNKNOWN", r".")
+    ('COLON',     r':'),
+    ('EQEQ',      r'=='),
+    ('EQ',        r'='),
+    ('LBRACE',    r'\{'),
+    ('RBRACE',    r'\}'),
+    ('LT',        r'<'),
+    ('GT',        r'>'),
+    ('NEQ',       r'!='),
+    ('STRING',    r'"(?:\\.|[^"\\])*"'),
+    ('COMMA',     r','),
+    ('DOT',       r'\.'),
+    ('IDENT',     r'[^\W\d]\w*'),
+    ('UNKNOWN',   r'.'),
 ]
 
-# Türkçeleştirme amaçlı boş stringler bırakıldı. Geçiş sürecinde boş değerler Türkçe değerler ile eşleştilecek.
-# Eşleştirilen Türkçe ifadelerin Ingilizce hali .upper() metodu ile tokens listesine eklenecektir.
-# Örneğin: ("if", "eğer"),
+KEYWORDS = {
+    'if':     ("eger", "eğer"),
+    'while':  ("iken",),
+    'else':   ("degilse", "değilse","yoksa",),
+    'fn':     ("fon","fn",),
+    'call':   ("cagir", "çağır"),
+    'print':  ("yaz",),
+    'repeat': ("tekrar",),
+    'sleep':  ("uyu","bekle",),
+    'use':    ("kullan",),
+    'del':    ("sil",),
+    'scope':  ("kapsam",),
+}
 
-KEYWORDS =  {('if',    ""), 
-            ('while',  ""), 
-            ('else',   ""), 
-            ('fn',     ""), 
-            ("call",   ""),
-            ("print",  ""), 
-            ("repeat", ""), 
-            ("sleep",  ""),
-            ("use",    ""), 
-            ("del",    ""), 
-            ("scope",  "")}
+def tr_lower(s: str) -> str:
+    return s.replace('İ', 'i').replace('I', 'ı').lower()
 
-KEYWORD_MAP = {en: en.upper() for en, tr in KEYWORDS}
 
-def lexer_engine(code:str="", file_name:str=""):
+
+
+
+
+KEYWORD_MAP = {
+    tr_word: en_name.upper()
+    for en_name, tr_words in KEYWORDS.items()
+    for tr_word in tr_words
+}
+
+
+# ... KEYWORDS / KEYWORD_MAP / tr_lower yukarıdaki gibi ...
+
+def lexer_engine(code: str = "", file_name: str = ""):
+    code = normalize("NFC", code)
     tokens = []
-    master_pattern = '|'.join(f'(?P<{name}>{pattern})' for name, pattern in TOKEN_SPEC)
+    master_pattern = '|'.join(f'(?P<{n}>{p})' for n, p in TOKEN_SPEC)
     line = 1
 
     for match in finditer(master_pattern, code):
-        kind = match.lastgroup
-        value = match.group()
-        token_line = line
+        kind, value, token_line = match.lastgroup, match.group(), line
 
         if kind == 'COMMENT':
-            kind = "SKIP"
+            kind = 'SKIP'
         if kind == 'SKIP':
             line += value.count('\n')
             continue
-        if kind == "UNKNOWN":
+        if kind == 'UNKNOWN':
             SYNTAXERROR.error(token_line, ErrorFile=file_name, ErrorElement=value)
         if kind == 'IDENT':
-            kind = KEYWORD_MAP.get(value, kind)
+            kind = KEYWORD_MAP.get(tr_lower(value), kind)
         tokens.append((kind, value, token_line))
 
     tokens.append(("EOF", None, line))
