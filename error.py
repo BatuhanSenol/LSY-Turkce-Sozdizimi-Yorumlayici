@@ -24,20 +24,20 @@ class Error:
         
         date = datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
         
-        print(f"\n [⦁] {magenta}Error{reset} at file: {magenta}{ErrorFile}{reset}:{magenta}{ErrorLine}{reset}")
-        print(f"{space}|> Error Time: {date}")
+        print(f"\n [⦁] {magenta}Hata{reset} dosyasında: {magenta}{ErrorFile}{reset}:{magenta}{ErrorLine}{reset}")
+        print(f"{space}|> Hata anı: {date}")
         print(f"{space}|> {red}{self.ErrorName}{reset}: {self.ErrorText}")
         if OptionalErrorText:
-            print(f"{space}|> Error Msg: {red}{OptionalErrorText}{reset}")
+            print(f"{space}|> Hata Mesajı: {red}{OptionalErrorText}{reset}")
         if ErrorElement:
             print(f"{space}|> Element: {ErrorElement}")
 
         sysexit(1)
 
-SYNTAXERROR             = Error(ErrorName="SyntaxError", ErrorText="Unknown syntax.")
-MEMORYERROR             = Error(ErrorName="MemoryError", ErrorText="Insufficient memory.")
-UNDEFINEDVALUEERROR     = Error("UndefinedValueError", "Variable not defined.")
-UNDEFINEDFUNCTIONERROR  = Error("UndefinedFunctionError", "Function not defined.")
-ZERODIVISIONERROR       = Error("ZeroDivisionError", "Division by zero.")
-RECURSIONERROR          = Error("RecursionError", "The recursive function call limit has been reached.")
-TYPEERROR               = Error("TypeError", "Undefined operations cannot be performed between different types or within a specific type.")
+SYNTAXERROR             = Error(ErrorName="SözdizimiHatası", ErrorText="Bilinmeyen sözdizimi.")
+MEMORYERROR             = Error(ErrorName="BellekHatası", ErrorText="Yetersiz bellek.")
+UNDEFINEDVALUEERROR     = Error("TanımsızDeğişkenHatası", "Değişken tanımsız.")
+UNDEFINEDFUNCTIONERROR  = Error("TanımsızFonksiyonHatası", "Fonksiyon tanımsız.")
+ZERODIVISIONERROR       = Error("SıfıraBölünmeHatası", "Sıfır ile bölünemez.")
+RECURSIONERROR          = Error("İçFonksiyonHatası", "İç fonksiyon çağırma sınırına ulaşıldı.")
+TYPEERROR               = Error("TipHatası", "Tanımlanmamış işlemler farklı tip işlemlerle kullanılamaz.")

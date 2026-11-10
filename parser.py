@@ -3,7 +3,7 @@ from error import SYNTAXERROR
 
 
 def exp(obj: str):
-    return f"\"{obj}\" was expected."
+    return f"\"{obj}\" bekleniyordu."
 
 def expect_not(obj: str, token: tuple):
     return obj != token[0]
